@@ -1,0 +1,71 @@
+System Call Inherit in Linux Kernel
+
+Team:
+Group - 12
+Prankur Gupta - 108492684 
+Abhishek Shukla Ravishankara - 107598884 
+Sumit Singh Bagga - 108235636
+
+
+Objective: 
+To implement a scheme where a process and its child processes in Linux have an option to use a new/modified set of system calls.
+
+Work Done uptil now :-
+
+Created three modules 
+1) For registering - unregistering system call vectors
+2) Ioctl module through a new character device
+3) Override system call vector module
+
+Explanation for each Module :-
+
+1) For registering each vector in our system call, we use this module.
+
+It creates an entry in the proc filesystem for our desired system call vector.
+This is done by calling "create_proc_entry()" function with "0444" permissions.
+Reson for choosing "proc" filesystem is - 
+	a) Its easy to use
+	b) It contains all the information about current state of kernel.
+In this module only, we have exported three functions
+	a) register_syscall
+	b) unregister_syscall
+	c) get_vector_address
+
+2) Ioctl device module
+
+In this module, we created a ioctl for a character device through which
+we can communicate with the process's task_struct and add the additional
+stuff into its task_struct as desired. The process, which wants to use
+the new system call vector has to first set it task_struct field
+(we will talk about which field later on), in order to be valid to use
+new system call vector. Here we also use the externed "get_vector_address"
+of the above module to perform this task.
+
+3) Override system call vector
+
+In this module, we are creating a new sys_call table for those processes
+who wants to override their sys_call table with the registered sys_call
+vectors.
+
+
+Work To be done :-
+We have seen the task_struct of a process, and know we have to decide 
+which existing field we have to use or create a new field , for storing
+the information about whether the process wants to use sys_call override
+vectors or not. 
+
+We are planning to use void *journal_info field, because
+we found out that this field remains empty generally, but not sure, it 
+can be used by the filesystem later on, so this is not a full-proof method.
+
+Another method, which we can use is to create our own void * field in the
+task_struct of the task_struct, but it also cannot guarentee that it will
+pass all the tests as because it depends on the usage of the task_struct by other processes in the kernel. Some of them might be using task_struct as 
+memory mapped structure in which case our implementation can pose serious
+threats of crashing.
+
+So, we need to ask about what is the right approach we need to follow.
+
+Another thing which we want to ask is about assembly level code,
+
+ 

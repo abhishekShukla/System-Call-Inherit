@@ -1,0 +1,15 @@
+cd tests_demo
+make clean
+cd ../ioctl_module
+rmmod ioctl_module.ko 
+make clean
+rm /dev/ioctl_device
+cd ../link_vector
+rmmod link_vector.ko
+make clean
+cd ../file_ops_vector
+rmmod file_ops_vector.ko
+make clean
+cd ..
+rmmod reg_unreg.ko
+make clean
