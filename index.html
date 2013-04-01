@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>System-call-inherit by abhishekShukla</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>System-call-inherit</h1>
+        <p></p>
+
+        <p class="view"><a href="https://github.com/abhishekShukla/System-Call-Inherit">View the Project on GitHub <small>abhishekShukla/System-Call-Inherit</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/abhishekShukla/System-Call-Inherit/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/abhishekShukla/System-Call-Inherit/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/abhishekShukla/System-Call-Inherit">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>System calls provide the interface between a process and the operating sys- tem (kernel). We as a user process, can request kernel to perform some previleged tasks, by calling these system calls. When a user process invokes a system call, the CPU switches to Kernel Mode and starts the execution of kernel function. There is a set of such system calls defined in Linux, repre- sented by a unique system call number. For each of these system call, there is a unique system call handler. Any changes in the system call or their han- dler, must be followed by recompiling the kernel so that the changes can take affect. So, it is neither easy to change or add a system call as per users need, nor does Linux provides some implementation for doing that.Adding a new system call to the kernel and then creating programs that use this call take away the program’s portability. Adding a system call can also introduce a serious security problem into your system. The best solution is to write our own system calls but adding them statically or even as a module requires changes in the kernel code which may cause inconsistency and takes away kernel portability. Unlike Linux, BSD provides facilities to override the de- fault system call vector. We aim to provide user an additional functionality to override the system call vector and also its subsequent child processes will also use that overridden vector only. For this we created a module to register and deregister the vector names, which have the overridden system call number and their function implementation. The user can choose to use the overridden system call vector through ioctl, which populates the private data field of task struct of that process with the address of the list of system call and their function implementation.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/abhishekShukla">abhishekShukla</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
